@@ -8,13 +8,42 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2 className="welcome-title">Welcome to Meetbook</h2>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          To update stuff, edit <code>src/App.js</code> and save to reload.
         </p>
+        <ShowGroups/>
       </div>
     );
+  }
+}
+
+class ShowGroups extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {items: [], text: ''};
+  }
+
+  render() {
+    return (
+      <div>
+      <form onSubmit={this.handleSubmit}><button>Show Groups</button></form>
+      </div>
+    );
+  }
+
+  handleSubmit(e) {
+   e.preventDefault();
+   var newItem = {
+     text: this.state.text,
+     id: Date.now()
+   };
+   this.setState((prevState) => ({
+     items: prevState.items.concat(newItem),
+     text: ''
+   }));
   }
 }
 
