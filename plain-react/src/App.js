@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import graph from 'fb-react-sdk';
+import secrets from './SECRET.js'
 
 class App extends Component {
   render() {
@@ -22,6 +24,7 @@ class App extends Component {
 class ShowGroups extends React.Component {
   constructor(props) {
     super(props);
+    //static call to initials api
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {items: [], text: ''};
   }
