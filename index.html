@@ -1,0 +1,50 @@
+<html>
+<body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1215731745163457',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+   function getMembersCallback(response) {
+     console.log("get members api output follows");
+     console.log(response)
+   }
+
+   function statusChangeCallback(response) {
+     console.log(response);
+     if (response.status === 'connected') {
+        console.log("token: " + response.authResponse.accessToken);
+        FB.api(
+          '/1786434821641314',
+          'GET',
+          {"fields":"members{email,first_name,last_name,middle_name,about}"},
+          getMembersCallback
+        );
+      }
+   }
+   function checkLoginState() {
+     FB.getLoginStatus(function(response) {
+       statusChangeCallback(response);
+     });
+   }
+</script>
+
+<fb:login-button
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+<span id="output"></span>
+</body>
+</html>
