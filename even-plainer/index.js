@@ -1,10 +1,62 @@
 var APP_ID='1215731745163457';
 
+var ADD_MEETUP_USER_TO_GROUP='Add Meetup User to Group';
+var ADD_FB_USER_TO_GROUP='Add FB User to Group';
+var SEND_INVITE ='Send an Invite';
+
+function getMemberComponentName(name) {
+  var classNames = {
+    'Shih'  : (<Ken />),
+    'Lee'   : (<span className="sak">
+                  Sak Lee <button>{ADD_FB_USER_TO_GROUP}</button>
+               </span>),
+    'Spencer': (<span className="mike">
+                  Mike Spencer<div>
+                    <p className="found">Found these Meetup users matching "Mike Spencer"</p>
+                    <p>
+                    Mike Spencer at New York, NY <button>{ADD_MEETUP_USER_TO_GROUP}</button>
+                    </p>
+                    <p>
+                    Spencer at Cincinnati, OH <button>{ADD_MEETUP_USER_TO_GROUP}</button>
+                    </p>
+                  </div>
+                </span>),
+    'default' : (<span>John Doe not found on Meetup <button>{SEND_INVITE}</button></span>)
+  };
+  return (classNames[name] || classNames['default']);
+}
+
+var Ken = React.createClass({
+  getInitialState: function() {
+    return { clicked: false };
+  },
+
+  clicked: function() {
+    this.setState({ clicked: true });
+  },
+
+  render: function() {
+    var self = this;
+    var btnState = "hi";
+    if(self.state.clicked) {
+      btnState = "clicked";
+    } else {
+      btnState = "not clicked";
+    }
+    return (
+      <span className="ken">
+        Ken Shih <button onClick={self.clicked}>{btnState} {ADD_MEETUP_USER_TO_GROUP}</button>
+      </span>
+    );
+  },
+});
 var Member = React.createClass({
   render: function() {
+    var memberFound =  getMemberComponentName(this.props.member.last_name);
+    var debug = (<span className="debug">{this.props.member.first_name} {this.props.member.last_name} {this.props.member.id}</span>);
     return (
       <div className="member">
-        {this.props.member.first_name} {this.props.member.last_name} {this.props.member.id}
+        {debug}{memberFound}
       </div>
     );
   },

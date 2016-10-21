@@ -4,6 +4,14 @@ body {
   font-family: sans-serif;
 }
 
+.debug {
+  font-style: oblique;
+  background-color: orange;
+  visibility: hidden;
+}
+
+.member { text-align: left;}
+
 .App {
   text-align: center;
 }
