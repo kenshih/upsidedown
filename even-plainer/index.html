@@ -2,113 +2,29 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React Facebook API Tutorial</title>
+    <title>Meetbook</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
-    <script src="SECRET.js"></script>
+    <link type="type/css" rel="stylesheet" href="index.css"></link>
   </head>
   <body>
-    <div id="content"></div>
-    <script type="text/babel">
-var APP_ID='1215731745163457';
-    var Post = React.createClass({
-        render: function() {
-          return (
-            <div className="post">
-              {this.props.post.message}
-            </div>
-          );
-        },
-      });
-      var Page = React.createClass({
-        getInitialState: function() {
-          console.log(this.props.object);
-          return {posts: []};
-        },
-        componentDidMount: function() {
-         var self = this;
-         FB.api(
-           '/1786434821641314',
-           'GET',
-           {"fields":"members{email,first_name,last_name,middle_name,about}"},
-           function(response) {
-             console.log('ha');
-             console.log(response.members.data);
-             //self.setState({posts: response.data});
-         });
-       },
-        render: function() {
-          return (
-            <div className="page">
-              {
-                this.state.posts.map(function(post) {
-                  return <Post key={post.id} post={post} />;
-                })
-              }
-            </div>
-          );
-        }
-      });
-
-function bootstrapReact(authKey) {
-  ReactDOM.render(
-    <Page authKey={authKey} />,
-    document.getElementById('content')
-  );
-}
-
-function initButton() {
-  var button = document.getElementById("crassButton");
-  button.onclick = checkLoginState;
-}
-window.fbAsyncInit = function() {
-  FB.init({
-    appId: APP_ID,
-    cookie: true,
-    xfbml: true,
-    version: 'v2.5',
-  });
-  initButton();
-  //x();
-
-};
-
-(function(d, s, id){
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-var checkLoginState = function () {
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-};
-
-  var getMembersCallback = function (response) {
-    console.log("get members api output follows");
-    console.log(response)
-  };
-
-  var statusChangeCallback = function (response) {
-    console.log(response);
-    if (response.status === 'connected') {
-       bootstrapReact(response.authResponse.accessToken)
-      //  FB.api(
-      //    '/1786434821641314',
-      //    'GET',
-      //    {"fields":"members{email,first_name,last_name,middle_name,about}"},
-      //    getMembersCallback
-      //  );
-     }
-  };
-
-    </script>
-    <button id="crassButton" >touch</button>
-    <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
-
+    <script type="text/babel" src="index.js"></script>
+    <div class="App">
+      <div class="App-header">
+        <img src="logo.svg" class="App-logo" alt="logo" />
+        <h2 class="welcome-title">Welcome to Meetbook</h2>
+      </div>
+      <p class="App-intro">
+        <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+        <p>
+          Aha! Ken, it seems you have a group called <b>"Hacky-saky-mikey-keny Group"</b>
+        </p>
+        <p>
+          <button id="crassButton" >Create a Meetup Group</button> of this name
+        </p>
+        <div id="content"></div>
+      </p>
+    </div>
 </body>
 </html>
