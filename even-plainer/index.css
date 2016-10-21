@@ -11,7 +11,10 @@ body {
 }
 
 .list-container {
-  text-align: center;
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
 }
 
 /* for the "add this member" list of members */
@@ -28,6 +31,10 @@ body {
 .row {display:table-row; }
 .cell, .mike-cell {display:table-cell;}
 
+.found, .from-region {
+  font-style: oblique;
+  font-size: small;
+}
 /* inherited react starter project */
 .App {
   text-align: center;

@@ -5,6 +5,7 @@ var ADD_FB_USER_TO_GROUP='Add FB User to Group';
 var SEND_INVITE ='Send an Invite';
 var INVITE_SENT = 'Invite Sent';
 var ADDED = 'Added';
+var ALREADY_ADDED = 'Already Added';
 
 //the following don't work
 //var BTN_MUP = (<StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />);
@@ -13,7 +14,7 @@ function getMemberComponent(name) {
   var classNames = {
     'Shih'  : (<div className="member-list-item">
                 <div className="cell">Ken Shih</div>
-                <div className="cell"><StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} /></div>
+                <div className="cell"><StateChangeButton initText={ALREADY_ADDED} updateName={ALREADY_ADDED} /></div>
                </div>),
     'Linh'  : (<div className="member-list-item">
                 <div className="cell">Bùi Phương Linh</div>
@@ -31,11 +32,13 @@ function getMemberComponent(name) {
                     <div className="table">
                       <span className="found">Found these Meetup users matching "Mike Spencer"</span>
                       <div className="row">
-                        <div className="cell">Mike Spencer at New York, NY</div>
+                        <div className="cell">Mike Spencer
+                          <span className="from-region"> from New York, NY</span></div>
                         <div className="cell"><StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} /></div>
                       </div>
                       <div className="row">
-                        <div className="cell">Spencer at Cincinnati, OH</div>
+                        <div className="cell">Spencer
+                          <span className="from-region"> from Cincinnati, OH</span></div>
                         <div><StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} /></div>
                       </div>
                     </div>
