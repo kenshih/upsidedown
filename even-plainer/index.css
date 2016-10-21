@@ -10,10 +10,12 @@ body {
   visibility: hidden;
 }
 
-.member-list {}
-.member-list-item {}
-.member-sublist {}
+/* for the "add this member" list of members */
+.member-list { text-align: left; }
+.member-list-item { text-align: left; }
+.member-sublist { text-align: left; }
 
+/* inherited react starter project */
 .App {
   text-align: center;
 }

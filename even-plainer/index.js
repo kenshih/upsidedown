@@ -15,6 +15,10 @@ function getMemberComponentName(name) {
                 Ken Shih
                 <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
                </span>),
+    'Linh'  : (<span className="bui">
+                Bùi Phương Linh
+                <StateChangeButton initText={SEND_INVITE} updateName={INVITE_SENT} />
+               </span>),
     'Lee'   : (<span className="sak">
                   Sak Lee has a FB account associated with Meetup
                   <StateChangeButton initText={ADD_FB_USER_TO_GROUP} updateName={ADDED} />
@@ -34,7 +38,10 @@ function getMemberComponentName(name) {
                     </ul>
                   </div>
                 </span>),
-    'default' : (<span>John Doe was not found on Meetup <button>{SEND_INVITE}</button></span>)
+    'default' : (<span>
+                 John Doe was not found on Meetup
+                 <StateChangeButton initText={SEND_INVITE} updateName={INVITE_SENT} />
+                </span>)
   };
   return (classNames[name] || classNames['default']);
 }
