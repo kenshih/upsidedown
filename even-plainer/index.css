@@ -10,10 +10,23 @@ body {
   visibility: hidden;
 }
 
+.list-container {
+  text-align: center;
+}
+
 /* for the "add this member" list of members */
-.member-list { text-align: left; }
-.member-list-item { text-align: left; }
-.member-sublist { text-align: left; }
+.member-list { display: table; text-align: left; }
+.member-list-item { display: table-row; }
+/*.member-list { display: table; }
+.member-list-item { display: table-row; }
+.member-list-item ul li { display: table-cell; }
+.member-sublist { display: table; }
+.member-sublist li { display: table-row; }
+.member-sublist li ul li { display: table-cell; }*/
+/* aaarrrrg */
+.table {display:table; text-align: left;}
+.row {display:table-row; }
+.cell, .mike-cell {display:table-cell;}
 
 /* inherited react starter project */
 .App {

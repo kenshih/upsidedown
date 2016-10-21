@@ -9,35 +9,39 @@ var ADDED = 'Added';
 //the following don't work
 //var BTN_MUP = (<StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />);
 
-function getMemberComponentName(name) {
+function getMemberComponent(name) {
   var classNames = {
-    'Shih'  : (<span className="ken">
-                Ken Shih
-                <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
-               </span>),
-    'Linh'  : (<span className="bui">
-                Bùi Phương Linh
-                <StateChangeButton initText={SEND_INVITE} updateName={INVITE_SENT} />
-               </span>),
-    'Lee'   : (<span className="sak">
-                  Sak Lee has a FB account associated with Meetup
-                  <StateChangeButton initText={ADD_FB_USER_TO_GROUP} updateName={ADDED} />
-               </span>),
-    'Spencer': (<span className="mike">
-                  Mike Spencer<div>
-                    <ul className="member-sublist">
-                      <span className="found">Found these Meetup users matching "Mike Spencer"</span>
-                      <li>
-                      Mike Spencer at New York, NY
-                      <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
-                      </li>
-                      <li>
-                      Spencer at Cincinnati, OH
-                      <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
-                      </li>
-                    </ul>
+    'Shih'  : (<div className="member-list-item">
+                <div className="cell">Ken Shih</div>
+                <div className="cell"><StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} /></div>
+               </div>),
+    'Linh'  : (<div className="member-list-item">
+                <div className="cell">Bùi Phương Linh</div>
+                <div className="cell"><StateChangeButton initText={SEND_INVITE} updateName={INVITE_SENT} /></div>
+               </div>),
+    'Lee'   : (<div className="member-list-item">
+                  <div className="cell">Sak Lee has a FB account associated with Meetup</div>
+                  <div className="cell"><StateChangeButton initText={ADD_FB_USER_TO_GROUP} updateName={ADDED} /></div>
+               </div>),
+    'Spencer': (<div className="member-list-item">
+                  <div className="cell">
+                    Mike Spencer
                   </div>
-                </span>),
+                  <div className="cell">
+                    <div className="table">
+                      <span className="found">Found these Meetup users matching "Mike Spencer"</span>
+                      <div className="row">
+                        <div className="cell">Mike Spencer at New York, NY</div>
+                        <div className="cell"><StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} /></div>
+                      </div>
+                      <div className="row">
+                        <div className="cell">Spencer at Cincinnati, OH</div>
+                        <div><StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} /></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                ),
     'default' : (<span>
                  John Doe was not found on Meetup
                  <StateChangeButton initText={SEND_INVITE} updateName={INVITE_SENT} />
@@ -69,15 +73,12 @@ var StateChangeButton = React.createClass({
   },
 });
 
+//a member is nested
 var Member = React.createClass({
   render: function() {
-    var memberFound =  getMemberComponentName(this.props.member.last_name);
+    var memberFound =  getMemberComponent(this.props.member.last_name);
     var debug = (<span className="debug">{this.props.member.first_name} {this.props.member.last_name} {this.props.member.id}</span>);
-    return (
-      <li className="member-list-item">
-        {debug}{memberFound}
-      </li>
-    );
+    return memberFound;
   },
 });
 
@@ -106,13 +107,15 @@ var Page = React.createClass({
     console.log(this.state);
     return (
         <div className="page">
-          <ul className="member-list">
-          {
-            this.state.members.map(function(member) {
-              return <Member key={member.id} member={member} />;
-            })
-          }
-          </ul>
+          <div className="list-container">
+            <div className="member-list">
+            {
+              this.state.members.map(function(member) {
+                return <Member key={member.id} member={member} />;
+              })
+            }
+            </div>
+          </div>
         </div>
     );
   }
