@@ -6,7 +6,9 @@ var SEND_INVITE ='Send an Invite';
 
 function getMemberComponentName(name) {
   var classNames = {
-    'Shih'  : (<Ken />),
+    'Shih'  : (<span className="ken">
+                Ken Shih <MupAddButton />
+               </span>),
     'Lee'   : (<span className="sak">
                   Sak Lee <button>{ADD_FB_USER_TO_GROUP}</button>
                </span>),
@@ -26,7 +28,7 @@ function getMemberComponentName(name) {
   return (classNames[name] || classNames['default']);
 }
 
-var Ken = React.createClass({
+var MupAddButton = React.createClass({
   getInitialState: function() {
     return { clicked: false };
   },
@@ -44,9 +46,7 @@ var Ken = React.createClass({
       btnState = "not clicked";
     }
     return (
-      <span className="ken">
-        Ken Shih <button onClick={self.clicked}>{btnState} {ADD_MEETUP_USER_TO_GROUP}</button>
-      </span>
+      <button onClick={self.clicked}>{btnState} {ADD_MEETUP_USER_TO_GROUP}</button>
     );
   },
 });
