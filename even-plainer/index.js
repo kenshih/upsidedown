@@ -21,15 +21,17 @@ function getMemberComponentName(name) {
                </span>),
     'Spencer': (<span className="mike">
                   Mike Spencer<div>
-                    <p className="found">Found these Meetup users matching "Mike Spencer"</p>
-                    <p>
-                    Mike Spencer at New York, NY
-                    <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
-                    </p>
-                    <p>
-                    Spencer at Cincinnati, OH
-                    <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
-                    </p>
+                    <ul className="member-sublist">
+                      <span className="found">Found these Meetup users matching "Mike Spencer"</span>
+                      <li>
+                      Mike Spencer at New York, NY
+                      <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
+                      </li>
+                      <li>
+                      Spencer at Cincinnati, OH
+                      <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
+                      </li>
+                    </ul>
                   </div>
                 </span>),
     'default' : (<span>John Doe was not found on Meetup <button>{SEND_INVITE}</button></span>)
@@ -59,18 +61,20 @@ var StateChangeButton = React.createClass({
     );
   },
 });
+
 var Member = React.createClass({
   render: function() {
     var memberFound =  getMemberComponentName(this.props.member.last_name);
     var debug = (<span className="debug">{this.props.member.first_name} {this.props.member.last_name} {this.props.member.id}</span>);
     return (
-      <div className="member">
+      <li className="member-list-item">
         {debug}{memberFound}
-      </div>
+      </li>
     );
   },
 });
 
+// entrypoint into react - the top-level component
 var Page = React.createClass({
   getInitialState: function() {
     return {members: []};
@@ -95,27 +99,31 @@ var Page = React.createClass({
     console.log(this.state);
     return (
         <div className="page">
+          <ul className="member-list">
           {
             this.state.members.map(function(member) {
               return <Member key={member.id} member={member} />;
             })
           }
+          </ul>
         </div>
     );
   }
 });
 
+// React bootstrap interface
 function bootstrapReact(authKey) {
   ReactDOM.render(
     <Page authKey={authKey} />,
     document.getElementById('content')
   );
 }
-
 function initButton() {
   var button = document.getElementById("crassButton");
   button.onclick = checkLoginState;
 }
+
+// FB integration code that bootstraps react
 window.fbAsyncInit = function() {
   FB.init({
     appId: APP_ID,
@@ -124,10 +132,7 @@ window.fbAsyncInit = function() {
     version: 'v2.5',
   });
   initButton();
-  //x();
-
 };
-
 (function(d, s, id){
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
@@ -135,27 +140,14 @@ window.fbAsyncInit = function() {
   js.src = "//connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
 var checkLoginState = function () {
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
 };
-
-  var getMembersCallback = function (response) {
-    console.log("get members api output follows");
-    console.log(response)
-  };
-
-  var statusChangeCallback = function (response) {
-    console.log(response);
-    if (response.status === 'connected') {
-       bootstrapReact(response.authResponse.accessToken)
-      //  FB.api(
-      //    '/1786434821641314',
-      //    'GET',
-      //    {"fields":"members{email,first_name,last_name,middle_name,about}"},
-      //    getMembersCallback
-      //  );
-     }
-  };
+var statusChangeCallback = function (response) {
+  //console.log(response);
+  if (response.status === 'connected') {
+     bootstrapReact(response.authResponse.accessToken)
+   }
+};

@@ -10,7 +10,9 @@ body {
   visibility: hidden;
 }
 
-.member { text-align: left;}
+.member-list {}
+.member-list-item {}
+.member-sublist {}
 
 .App {
   text-align: center;
