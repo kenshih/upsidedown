@@ -3,32 +3,41 @@ var APP_ID='1215731745163457';
 var ADD_MEETUP_USER_TO_GROUP='Add Meetup User to Group';
 var ADD_FB_USER_TO_GROUP='Add FB User to Group';
 var SEND_INVITE ='Send an Invite';
+var INVITE_SENT = 'Invite Sent';
+var ADDED = 'Added';
+
+//the following don't work
+//var BTN_MUP = (<StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />);
 
 function getMemberComponentName(name) {
   var classNames = {
     'Shih'  : (<span className="ken">
-                Ken Shih <MupAddButton />
+                Ken Shih
+                <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
                </span>),
     'Lee'   : (<span className="sak">
-                  Sak Lee <button>{ADD_FB_USER_TO_GROUP}</button>
+                  Sak Lee has a FB account associated with Meetup
+                  <StateChangeButton initText={ADD_FB_USER_TO_GROUP} updateName={ADDED} />
                </span>),
     'Spencer': (<span className="mike">
                   Mike Spencer<div>
                     <p className="found">Found these Meetup users matching "Mike Spencer"</p>
                     <p>
-                    Mike Spencer at New York, NY <button>{ADD_MEETUP_USER_TO_GROUP}</button>
+                    Mike Spencer at New York, NY
+                    <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
                     </p>
                     <p>
-                    Spencer at Cincinnati, OH <button>{ADD_MEETUP_USER_TO_GROUP}</button>
+                    Spencer at Cincinnati, OH
+                    <StateChangeButton initText={ADD_MEETUP_USER_TO_GROUP} updateName={ADDED} />
                     </p>
                   </div>
                 </span>),
-    'default' : (<span>John Doe not found on Meetup <button>{SEND_INVITE}</button></span>)
+    'default' : (<span>John Doe was not found on Meetup <button>{SEND_INVITE}</button></span>)
   };
   return (classNames[name] || classNames['default']);
 }
 
-var MupAddButton = React.createClass({
+var StateChangeButton = React.createClass({
   getInitialState: function() {
     return { clicked: false };
   },
@@ -41,12 +50,12 @@ var MupAddButton = React.createClass({
     var self = this;
     var btnState = "hi";
     if(self.state.clicked) {
-      btnState = "clicked";
+      btnState = self.props.updateName;
     } else {
-      btnState = "not clicked";
+      btnState = self.props.initText;
     }
     return (
-      <button onClick={self.clicked}>{btnState} {ADD_MEETUP_USER_TO_GROUP}</button>
+      <button onClick={self.clicked}>{btnState}</button>
     );
   },
 });
